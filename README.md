@@ -1,4 +1,4 @@
-# auditor
+# @dworac/auditor
 
 This is a template repository for quickly setting up a Node.js worker project with TypeScript, ESLint, Jest, and more. It provides a foundation for developing and maintaining worker processes, enabling you to focus on the specifics of your task.
 
