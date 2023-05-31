@@ -1,3 +1,9 @@
+/**
+ * @file src/config.ts
+ * @author dworac <mail@dworac.com>
+ *
+ * This file contains the configuration for the application.
+ */
 import { ConfigVariable } from "@dworac/config";
 
 class Config {

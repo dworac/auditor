@@ -1,3 +1,9 @@
+/**
+ * @file src/providers/octokitClient.ts
+ * @author dworac <mail@dworac.com>
+ *
+ * This file contains the octokit client used to interact with the GitHub API.
+ */
 import { Octokit } from "@octokit/rest";
 import { createAppAuth } from "@octokit/auth-app";
 import config from "../config";
