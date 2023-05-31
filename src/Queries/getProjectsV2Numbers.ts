@@ -1,7 +1,7 @@
 import { Octokit } from "octokit";
 import config from "../config";
 
-const octokit = new Octokit({ auth: config.GITHUB_TOKEN });
+const octokit = new Octokit({ auth: config.GITHUB_APP_ID });
 
 const getProjectsV2Numbers = async (): Promise<number[]> => {
   const query = `
