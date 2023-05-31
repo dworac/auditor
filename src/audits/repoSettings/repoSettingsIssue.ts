@@ -6,32 +6,25 @@
  */
 import { Octokit } from "@octokit/rest";
 import { markdownTable } from "markdown-table";
-import { CommunityGuidelinesResults } from "./CommunityGuidelinesResults";
+import { RepoSettingsResults } from "./repoSettingsResults";
 
 /**
  * Creates or updates the issue for the community guidelines audit.
  *
  * @param {Octokit} installationClient - The Octokit client for the installation.
- * @param {CommunityGuidelinesResults} basicAudit - The basic audit data.
+ * @param {RepoSettingsResults} basicAudit - The basic audit data.
  */
 export default async (
   installationClient: Octokit,
-  basicAudit: CommunityGuidelinesResults
+  basicAudit: RepoSettingsResults
 ) => {
   let mdTable = markdownTable([
     ["Validations", "Result"],
-    ["Has description", basicAudit.hasDescription ? "✅" : "❌"],
-    ["Has homepage", basicAudit.hasHomepage ? "✅" : "❌"],
-    ["Has readme", basicAudit.hasReadme ? "✅" : "❌"],
-    ["Has code of conduct", basicAudit.hasCodeOfConduct ? "✅" : "❌"],
-    ["Has contributing", basicAudit.hasContributing ? "✅" : "❌"],
-    ["Has license", basicAudit.hasLicense ? "✅" : "❌"],
-    ["Has security policy", basicAudit.hasSecurityPolicy ? "✅" : "❌"],
-    ["Has issue template", basicAudit.hasIssueTemplate ? "✅" : "❌"],
     [
-      "Has pull request template",
-      basicAudit.hasPullRequestTemplate ? "✅" : "❌",
+      "Master branch is protected",
+      basicAudit.masterHasBranchProtection ? "✅" : "❌",
     ],
+    ["Default branch", basicAudit.defaultBranch],
   ]);
 
   const score = Object.values(basicAudit).filter((v) => {
@@ -48,7 +41,7 @@ export default async (
   const scorePercentage = Math.round((score / totalBoolean) * 100);
 
   mdTable = `
-## 🔬 [Audit] Community Standards ${scorePercentage}% 
+## 🔬 [Audit] Repository Settings ${scorePercentage}% 
 
 Here how this project compares to [recommended community standards](https://opensource.guide/)
 These guidelines are not mandatory, but they are a good starting point for maintaining a healthy, collaborative community.
@@ -56,13 +49,13 @@ These guidelines are not mandatory, but they are a good starting point for maint
 ${mdTable}
   `;
 
-  const title = `🔬 [Audit] Community Standards ${scorePercentage}%`;
+  const title = `🔬 [Audit] Repository Settings ${scorePercentage}%`;
 
   // find an issue with the lable "audit" if it exists, update description otherwise create it
   const { data: issues } = await installationClient.rest.issues.listForRepo({
     owner: basicAudit.owner,
     repo: basicAudit.repoName,
-    labels: "audit",
+    labels: "repository-settings-audit",
   });
 
   if (issues.length > 0) {
@@ -79,7 +72,7 @@ ${mdTable}
     await installationClient.rest.issues.create({
       owner: basicAudit.owner,
       repo: basicAudit.repoName,
-      labels: ["audit"],
+      labels: ["repository-settings-audit"],
       body: mdTable,
       title,
       assignee: basicAudit.owner,

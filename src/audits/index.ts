@@ -4,8 +4,10 @@
  *
  * This file contains all audits to be ran.
  */
-import communityGuidelines from "./communityGuidelines/communityGuidelines";
+import communityGuidelines from "./communityGuidelines";
+import repoSettings from "./repoSettings";
 
 export default async () => {
-  await communityGuidelines();
+  // await communityGuidelines();
+  await repoSettings();
 };
