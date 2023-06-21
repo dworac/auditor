@@ -19,18 +19,51 @@ export default async (
   basicAudit: CommunityGuidelinesResults
 ) => {
   let mdTable = markdownTable([
-    ["Validations", "Result"],
-    ["Has description", basicAudit.hasDescription ? "✅" : "❌"],
-    ["Has homepage", basicAudit.hasHomepage ? "✅" : "❌"],
-    ["Has readme", basicAudit.hasReadme ? "✅" : "❌"],
-    ["Has code of conduct", basicAudit.hasCodeOfConduct ? "✅" : "❌"],
-    ["Has contributing", basicAudit.hasContributing ? "✅" : "❌"],
-    ["Has license", basicAudit.hasLicense ? "✅" : "❌"],
-    ["Has security policy", basicAudit.hasSecurityPolicy ? "✅" : "❌"],
-    ["Has issue template", basicAudit.hasIssueTemplate ? "✅" : "❌"],
+    ["Validations", "Result", "Docs"],
+    [
+      "Has description",
+      basicAudit.hasDescription ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
+      "[docs](https://docs.dworac.com/repositories/community-standards/github-settings)",
+    ],
+    [
+      "Has homepage",
+      basicAudit.hasHomepage ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
+      "[docs](https://docs.dworac.com/repositories/community-standards/github-settings)",
+    ],
+    [
+      "Has readme",
+      basicAudit.hasReadme ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
+      "[docs](https://docs.dworac.com/repositories/community-standards/readme-docs)",
+    ],
+    [
+      "Has code of conduct",
+      basicAudit.hasCodeOfConduct ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
+      "[docs](https://docs.dworac.com/repositories/community-standards/code-of-conduct)",
+    ],
+    [
+      "Has contributing",
+      basicAudit.hasContributing ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
+      "[docs](https://docs.dworac.com/repositories/community-standards/contributing)",
+    ],
+    [
+      "Has license",
+      basicAudit.hasLicense ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
+      "[docs](https://docs.dworac.com/repositories/community-standards/license)",
+    ],
+    [
+      "Has security policy",
+      basicAudit.hasSecurityPolicy ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
+      "[docs](https://docs.dworac.com/repositories/community-standards/security-policy)",
+    ],
+    [
+      "Has issue template",
+      basicAudit.hasIssueTemplate ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
+      "[docs](https://docs.dworac.com/repositories/community-standards/issue-templates)",
+    ],
     [
       "Has pull request template",
-      basicAudit.hasPullRequestTemplate ? "✅" : "❌",
+      basicAudit.hasPullRequestTemplate ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
+      "[docs](https://docs.dworac.com/repositories/community-standards/pr-templates)",
     ],
   ]);
 
@@ -62,7 +95,7 @@ ${mdTable}
   const { data: issues } = await installationClient.rest.issues.listForRepo({
     owner: basicAudit.owner,
     repo: basicAudit.repoName,
-    labels: "audit",
+    labels: "community-guidelines-audit",
   });
 
   if (issues.length > 0) {
@@ -79,7 +112,7 @@ ${mdTable}
     await installationClient.rest.issues.create({
       owner: basicAudit.owner,
       repo: basicAudit.repoName,
-      labels: ["audit"],
+      labels: ["community-guidelines-audit"],
       body: mdTable,
       title,
       assignee: basicAudit.owner,

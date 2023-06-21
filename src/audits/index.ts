@@ -8,6 +8,6 @@ import communityGuidelines from "./communityGuidelines";
 import repoSettings from "./repoSettings";
 
 export default async () => {
-  // await communityGuidelines();
+  await communityGuidelines();
   await repoSettings();
 };

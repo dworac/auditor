@@ -8,5 +8,5 @@ export interface RepoSettingsResults {
   repoName: string;
   owner: string;
   masterHasBranchProtection: boolean;
-  defaultBranch: string;
+  defaultBranchIsMaster: boolean;
 }

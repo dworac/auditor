@@ -14,7 +14,9 @@ import auditRepo from "./auditRepo";
 export default async () => {
   const installationIds = await getAppInstallationIds();
 
-  Logger.logInfo(`Auditing ${installationIds.length} installations...`);
+  Logger.logInfo(
+    `[COMMUNITY_GUIDELINES] Auditing ${installationIds.length} installations`
+  );
 
   for (let i = 0; i < installationIds.length; i += 1) {
     const installationId = installationIds[i];
@@ -25,14 +27,23 @@ export default async () => {
       "GET /installation/repositories"
     );
     Logger.logInfo(
-      `Auditing ${repos.total_count} repos for installation ${installationId}...`
+      `[COMMUNITY_GUIDELINES] Auditing ${repos.total_count} repos for installation ${installationId}...`
     );
 
     for (let j = 0; j < repos.repositories.length; j += 1) {
       const repo = repos.repositories[j];
-      Logger.logInfo(`Auditing ${repo.full_name}...`);
-      // eslint-disable-next-line no-await-in-loop
-      await auditRepo(installationClient, repo.owner.login, repo.name);
+      Logger.logInfo(`[COMMUNITY_GUIDELINES] Auditing ${repo.full_name}...`);
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        await auditRepo(installationClient, repo.owner.login, repo.name);
+        Logger.logSuccess(
+          `[COMMUNITY_GUIDELINES] Audit for ${repo.full_name} completed successfully!`
+        );
+      } catch (e) {
+        Logger.logError(
+          `[COMMUNITY_GUIDELINES] Error while auditing ${repo.full_name}: ${e.message}`
+        );
+      }
     }
   }
 };
