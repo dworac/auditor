@@ -15,7 +15,7 @@ export default async () => {
   const installationIds = await getAppInstallationIds();
 
   Logger.logInfo(
-    `[COMMUNITY_GUIDELINES] Auditing ${installationIds.length} installations`
+    `[COMMUNITY_STANDARDS] Auditing ${installationIds.length} installations`
   );
 
   for (let i = 0; i < installationIds.length; i += 1) {
@@ -27,21 +27,21 @@ export default async () => {
       "GET /installation/repositories"
     );
     Logger.logInfo(
-      `[COMMUNITY_GUIDELINES] Auditing ${repos.total_count} repos for installation ${installationId}...`
+      `[COMMUNITY_STANDARDS] Auditing ${repos.total_count} repos for installation ${installationId}...`
     );
 
     for (let j = 0; j < repos.repositories.length; j += 1) {
       const repo = repos.repositories[j];
-      Logger.logInfo(`[COMMUNITY_GUIDELINES] Auditing ${repo.full_name}...`);
+      Logger.logInfo(`[COMMUNITY_STANDARDS] Auditing ${repo.full_name}...`);
       try {
         // eslint-disable-next-line no-await-in-loop
         await auditRepo(installationClient, repo.owner.login, repo.name);
         Logger.logSuccess(
-          `[COMMUNITY_GUIDELINES] Audit for ${repo.full_name} completed successfully!`
+          `[COMMUNITY_STANDARDS] Audit for ${repo.full_name} completed successfully!`
         );
       } catch (e) {
         Logger.logError(
-          `[COMMUNITY_GUIDELINES] Error while auditing ${repo.full_name}: ${e.message}`
+          `[COMMUNITY_STANDARDS] Error while auditing ${repo.full_name}: ${e.message}`
         );
       }
     }

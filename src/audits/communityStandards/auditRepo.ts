@@ -6,8 +6,8 @@
  */
 import { Octokit } from "@octokit/rest";
 import pathExists from "../../queries/pathExists";
-import communityGuidelinesIssue from "./communityGuidelinesIssue";
-import { CommunityGuidelinesResults } from "./CommunityGuidelinesResults";
+import communityGuidelinesIssue from "./communityStandardsIssue";
+import { CommunityStandardsResults } from "./communityStandardsResults";
 
 export default async (
   installationClient: Octokit,
@@ -71,7 +71,7 @@ export default async (
     "pull_request_template.md"
   );
 
-  const basicAudit: CommunityGuidelinesResults = {
+  const basicAudit: CommunityStandardsResults = {
     repoName: name,
     owner,
     hasDescription: repo.data.description !== null,

@@ -51,6 +51,36 @@ export default async (
 
   const defaultBranch = getDefaultBranch.repository.defaultBranchRef.name;
 
+  const previouslyClosedBranches = await installationClient.graphql<any>(`
+    {
+        repository(owner: "${owner}", name: "${name}") {
+            ref(qualifiedName: "refs/heads/master") {
+                target {
+                    ... on Commit {
+                        history(first: 100) {
+                            nodes {
+                                message
+                                associatedPullRequests(first: 1) {
+                                    nodes {
+                                        state
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    `);
+
+  const closedBranches =
+    previouslyClosedBranches.repository.ref.target.history.nodes.filter(
+      (node: any) => node.message.includes("closes #")
+    );
+
+  console.log(closedBranches);
+
   const results: RepoSettingsResults = {
     repoName: name,
     owner,

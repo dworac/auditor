@@ -6,64 +6,64 @@
  */
 import { Octokit } from "@octokit/rest";
 import { markdownTable } from "markdown-table";
-import { CommunityGuidelinesResults } from "./CommunityGuidelinesResults";
+import { CommunityStandardsResults } from "./communityStandardsResults";
 
 /**
  * Creates or updates the issue for the community guidelines audit.
  *
  * @param {Octokit} installationClient - The Octokit client for the installation.
- * @param {CommunityGuidelinesResults} basicAudit - The basic audit data.
+ * @param {CommunityStandardsResults} basicAudit - The basic audit data.
  */
 export default async (
   installationClient: Octokit,
-  basicAudit: CommunityGuidelinesResults
+  basicAudit: CommunityStandardsResults
 ) => {
   let mdTable = markdownTable([
     ["Validations", "Result", "Docs"],
     [
       "Has description",
       basicAudit.hasDescription ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
-      "[docs](https://docs.dworac.com/repositories/community-standards/github-settings)",
+      "[open](https://docs.dworac.com/repositories/community-standards/github-settings)",
     ],
     [
       "Has homepage",
       basicAudit.hasHomepage ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
-      "[docs](https://docs.dworac.com/repositories/community-standards/github-settings)",
+      "[open](https://docs.dworac.com/repositories/community-standards/github-settings)",
     ],
     [
       "Has readme",
       basicAudit.hasReadme ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
-      "[docs](https://docs.dworac.com/repositories/community-standards/readme-docs)",
+      "[open](https://docs.dworac.com/repositories/community-standards/readme-docs)",
     ],
     [
       "Has code of conduct",
       basicAudit.hasCodeOfConduct ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
-      "[docs](https://docs.dworac.com/repositories/community-standards/code-of-conduct)",
+      "[open](https://docs.dworac.com/repositories/community-standards/code-of-conduct)",
     ],
     [
       "Has contributing",
       basicAudit.hasContributing ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
-      "[docs](https://docs.dworac.com/repositories/community-standards/contributing)",
+      "[open](https://docs.dworac.com/repositories/community-standards/contributing)",
     ],
     [
       "Has license",
       basicAudit.hasLicense ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
-      "[docs](https://docs.dworac.com/repositories/community-standards/license)",
+      "[open](https://docs.dworac.com/repositories/community-standards/license)",
     ],
     [
       "Has security policy",
       basicAudit.hasSecurityPolicy ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
-      "[docs](https://docs.dworac.com/repositories/community-standards/security-policy)",
+      "[open](https://docs.dworac.com/repositories/community-standards/security-policy)",
     ],
     [
       "Has issue template",
       basicAudit.hasIssueTemplate ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
-      "[docs](https://docs.dworac.com/repositories/community-standards/issue-templates)",
+      "[open](https://docs.dworac.com/repositories/community-standards/issue-templates)",
     ],
     [
       "Has pull request template",
       basicAudit.hasPullRequestTemplate ? "&nbsp;&nbsp;✅" : "&nbsp;&nbsp;❌",
-      "[docs](https://docs.dworac.com/repositories/community-standards/pr-templates)",
+      "[open](https://docs.dworac.com/repositories/community-standards/pr-templates)",
     ],
   ]);
 

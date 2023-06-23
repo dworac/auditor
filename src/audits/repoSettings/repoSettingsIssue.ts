@@ -24,7 +24,10 @@ export default async (
       "Master branch is protected",
       basicAudit.masterHasBranchProtection ? "✅" : "❌",
     ],
-    ["Default branch", basicAudit.defaultBranch],
+    [
+      "Master as default branch",
+      basicAudit.defaultBranchIsMaster ? "✅" : "❌",
+    ],
   ]);
 
   const score = Object.values(basicAudit).filter((v) => {

@@ -4,7 +4,7 @@
  *
  * This interface is used to store the results of the community guidelines audit.
  */
-export interface CommunityGuidelinesResults {
+export interface CommunityStandardsResults {
   repoName: string;
   owner: string;
   hasDescription: boolean;
